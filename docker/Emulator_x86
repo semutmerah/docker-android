@@ -68,17 +68,17 @@ RUN apt-get -qqy update && apt-get -qqy install --no-install-recommends \
 # Use same commit id that docker-selenium uses
 # https://github.com/elgalu/docker-selenium/blob/236b861177bd2917d864e52291114b1f5e4540d7/Dockerfile#L412-L413
 #=======
-ENV NOVNC_SHA="b403cb92fb8de82d04f305b4f14fa978003890d7" \
-    WEBSOCKIFY_SHA="558a6439f14b0d85a31145541745e25c255d576b"
-RUN  wget -nv -O noVNC.zip "https://github.com/kanaka/noVNC/archive/${NOVNC_SHA}.zip" \
+ENV NOVNC_SHA="cffb42ee8f150d46b6ecf2727fadd0f4f6557aa8" \
+    WEBSOCKIFY_SHA="f0bdb0a621a4f3fb328d1410adfeaff76f088bfd"
+RUN  wget -nv -O noVNC.zip "https://github.com/novnc/noVNC/archive/${NOVNC_SHA}.zip" \
  && unzip -x noVNC.zip \
  && rm noVNC.zip  \
  && mv noVNC-${NOVNC_SHA} noVNC \
- && wget -nv -O websockify.zip "https://github.com/kanaka/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
+ && wget -nv -O websockify.zip "https://github.com/novnc/websockify/archive/${WEBSOCKIFY_SHA}.zip" \
  && unzip -x websockify.zip \
  && mv websockify-${WEBSOCKIFY_SHA} ./noVNC/utils/websockify \
  && rm websockify.zip \
- && ln noVNC/vnc_auto.html noVNC/index.html
+ && ln noVNC/vnc_lite.html noVNC/index.html
 
 #======================
 # Install SDK packages
