@@ -37,6 +37,13 @@ WORKDIR /root
 # jq
 #   Sed for JSON data
 #------------------
+#  Gauge
+#------------------
+# gauge
+#   The gauge binary, the latest release from https://github.com/getgauge/gauge/releases/latest
+# apache-maven
+#   The apache maven binary for running gauge, the latest release from https://maven.apache.org/download.cgi
+#------------------
 #    KVM Package
 # for emulator x86
 # https://help.ubuntu.com/community/KVM/Installation
@@ -83,13 +90,13 @@ RUN  wget -nv -O noVNC.zip "https://github.com/novnc/noVNC/archive/${NOVNC_SHA}.
 #======================
 # Install SDK packages
 #======================
-ARG ANDROID_VERSION=5.0.1
-ARG API_LEVEL=21
+ARG ANDROID_VERSION=6.0
+ARG API_LEVEL=23
 ARG PROCESSOR=x86
 ARG SYS_IMG=x86
 ARG IMG_TYPE=google_apis
 ARG BROWSER=android
-ARG CHROME_DRIVER=2.40
+ARG CHROME_DRIVER=2.19
 ARG GOOGLE_PLAY_SERVICE=12.8.74
 ARG GOOGLE_PLAY_STORE=11.0.50
 ARG APP_RELEASE_VERSION=1.5-p0
@@ -126,6 +133,28 @@ RUN wget -nv -O chrome.zip "https://chromedriver.storage.googleapis.com/${CHROME
 #================================================================
 Run wget -nv -O google_play_services.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b5155e5ef4f8/com.google.android.gms_${GOOGLE_PLAY_SERVICE}-020700-204998136_12874013_MinAPI21_(x86)(nodpi)_apklinker.com.apk"
 Run wget -nv -O google_play_store.apk "https://www.apklinker.com/wp-content/uploads/uploaded_apk/5b632b1164e31/com.android.vending_${GOOGLE_PLAY_STORE}-all-0-PR-206665793_81105000_MinAPI16_(armeabi,armeabi-v7a,mips,mips64,x86,x86_64)(240,320,480dpi)_apklinker.com.apk"
+
+#===============================================
+# Download Gauge Binary and Apache Maven Binary
+#===============================================
+ARG GAUGE_VERSION=1.0.3
+ARG MAVEN_CORE_VERSION=3
+ARG MAVEN_VERSION=3.6.0
+ENV GAUGE_VERSION=$GAUGE_VERSION \
+    MAVEN_CORE_VERSION=$MAVEN_CORE_VERSION \
+    MAVEN_VERSION=$MAVEN_VERSION
+
+RUN wget https://github.com/getgauge/gauge/releases/download/v${GAUGE_VERSION}/gauge-${GAUGE_VERSION}-linux.x86_64.zip && \
+    unzip gauge-${GAUGE_VERSION}-linux.x86_64.zip && \
+    rm -rf gauge-${GAUGE_VERSION}-linux.x86_64.zip && \
+    cp gauge /usr/local/bin/ && \
+    rm -rf gauge
+RUN wget https://www-us.apache.org/dist/maven/maven-${MAVEN_CORE_VERSION}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.zip && \
+    unzip apache-maven-${MAVEN_VERSION}-bin.zip && \
+    rm -rf apache-maven-${MAVEN_VERSION}-bin.zip && \
+    mv apache-maven-${MAVEN_VERSION}/ apache-maven/
+
+ENV PATH=$PATH:/root/apache-maven/bin
 
 #================================================
 # noVNC Default Configurations
