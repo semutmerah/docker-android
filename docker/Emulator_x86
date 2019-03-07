@@ -1,6 +1,6 @@
-FROM appium/appium:1.9.1-p0
+FROM appium/appium:1.11.1-p1
 
-LABEL maintainer "Budi Utomo <budi.ut.1989@gmail.com>"
+LABEL maintainer "Budi Utomo <budtmo.os@gmail.com>"
 
 #=============
 # Set WORKDIR
@@ -111,7 +111,7 @@ ENV ANDROID_VERSION=$ANDROID_VERSION \
     GOOGLE_PLAY_STORE=$GOOGLE_PLAY_STORE \
     GA=true \
     GA_ENDPOINT=https://www.google-analytics.com/collect \
-    GA_TRACKING_ID=UA-128205228-1 \
+    GA_TRACKING_ID=UA-133466903-1 \
     GA_API_VERSION="1" \
     APP_RELEASE_VERSION=$APP_RELEASE_VERSION \
     APP_TYPE=Emulator
@@ -164,7 +164,7 @@ ENV DISPLAY=:0 \
     SCREEN=0 \
     SCREEN_WIDTH=1600 \
     SCREEN_HEIGHT=900 \
-    SCREEN_DEPTH=24 \
+    SCREEN_DEPTH=24+32 \
     LOCAL_PORT=5900 \
     TARGET_PORT=6080 \
     TIMEOUT=1 \
