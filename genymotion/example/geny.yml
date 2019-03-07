@@ -11,8 +11,8 @@ services:
       - 4444:4444
 
   # Please stop this container by using docker stop instead of docker-compose stop
-  cloud:
-    image: butomo1989/docker-android-genymotion
+  saas:
+    image: budtmo/docker-android-genymotion
     depends_on:
       - selenium_hub
     privileged: true
@@ -20,7 +20,7 @@ services:
       - $PWD/sample_apk:/root/tmp/sample_apk
       - $PWD/sample_devices:/root/tmp
     environment:
-      - TYPE=genycloud
+      - TYPE=SaaS
       - TEMPLATE=/root/tmp/devices.json
       - USER=$USER
       - PASS=$PASS
@@ -29,7 +29,7 @@ services:
 
   # Please stop this container by using docker stop instead of docker-compose stop
   aws:
-    image: butomo1989/docker-android-genymotion
+    image: budtmo/docker-android-genymotion
     depends_on:
       - selenium_hub
     privileged: true
